@@ -5,14 +5,19 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsd"
   },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "convict": "~6.2.4"
   },
   "devDependencies": {
-    "@types/convict": "~6.1.2"
+    "@types/convict": "~6.1.2",
+    "tsd": "~0.28.1"
   }
 }
