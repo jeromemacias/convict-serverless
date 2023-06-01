@@ -4,7 +4,7 @@ import convict from 'convict'
 // TODO: inject logger
 
 function convictServerless(def, opts) {
-    let isFreeze = false
+    let isFrozen = false
 
     if (typeof def === 'string') {
         throw Error('Schema definition must be an object')
@@ -17,7 +17,7 @@ function convictServerless(def, opts) {
     const baseConvictSet = baseConvict.set.bind(baseConvict)
 
     baseConvict.set = function (k, v) {
-        if (isFreeze) {
+        if (isFrozen) {
             return
         }
 
@@ -25,11 +25,11 @@ function convictServerless(def, opts) {
     }
 
     baseConvict.freeze = function () {
-        isFreeze = true
+        isFrozen = true
     }
 
-    baseConvict.isFreeze = function () {
-        return isFreeze
+    baseConvict.isFrozen = function () {
+        return isFrozen
     }
 
     baseConvict.toObject = function () {

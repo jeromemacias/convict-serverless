@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "convict": "~6.2.4"
+  },
+  "devDependencies": {
+    "@types/convict": "~6.1.2"
   }
 }

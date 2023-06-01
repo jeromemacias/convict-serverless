@@ -17,23 +17,23 @@ const config = serverlessConfig({
 
 config.validate()
 
-console.log(config.isFreeze())
+console.log('isFrozen ?', config.isFrozen())
 
 config.set('youhouStyle', 'yolo')
 
 config.set('test', 'toto')
-console.log(config.get('test'))
+console.log('test value:', config.get('test'))
 
 config.set('test', 'tata')
-console.log(config.get('test'))
+console.log('test value:', config.get('test'))
 
 config.freeze()
 
 config.set('test', 'titi')
 
-console.log(config.isFreeze())
-console.log(config.get('test'))
+console.log('isFrozen ?', config.isFrozen())
+console.log('test value:', config.get('test'))
 
-console.log(config.toObject())
+console.log('config object:', config.toObject())
 
 config.validate()
