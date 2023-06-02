@@ -1,45 +1,42 @@
-import convict from 'convict'
+import convict from 'convict';
 
-// TODO: add types
-// TODO: inject logger
+function convictServerless(def, options) {
+	let isFrozen = false;
 
-function convictServerless(def, opts) {
-    let isFrozen = false
+	if (typeof def === 'string') {
+		throw new TypeError('Schema definition must be an object');
+	}
 
-    if (typeof def === 'string') {
-        throw Error('Schema definition must be an object')
-    }
+	const baseConvict = convict(def, options);
 
-    const baseConvict = convict(def, opts)
+	delete baseConvict.loadFile;
 
-    delete baseConvict.loadFile
+	const baseConvictSet = baseConvict.set.bind(baseConvict);
 
-    const baseConvictSet = baseConvict.set.bind(baseConvict)
+	baseConvict.set = function (k, v) {
+		if (isFrozen) {
+			return;
+		}
 
-    baseConvict.set = function (k, v) {
-        if (isFrozen) {
-            return
-        }
+		return baseConvictSet(k, v);
+	};
 
-        return baseConvictSet(k, v)
-    }
+	baseConvict.freeze = function () {
+		isFrozen = true;
+	};
 
-    baseConvict.freeze = function () {
-        isFrozen = true
-    }
+	baseConvict.isFrozen = function () {
+		return isFrozen;
+	};
 
-    baseConvict.isFrozen = function () {
-        return isFrozen
-    }
+	baseConvict.toObject = function () {
+		return JSON.parse(baseConvict.toString());
+	};
 
-    baseConvict.toObject = function () {
-        return JSON.parse(baseConvict.toString())
-    }
-
-    return baseConvict
+	return baseConvict;
 }
 
-convictServerless.addFormat = convict.addFormat
-convictServerless.addFormats = convict.addFormats
+convictServerless.addFormat = convict.addFormat;
+convictServerless.addFormats = convict.addFormats;
 
-export default convictServerless
+export default convictServerless;

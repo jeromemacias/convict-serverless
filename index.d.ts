@@ -1,9 +1,11 @@
-import convict from 'convict'
+import type convict from 'convict';
 
-export interface ConvictServerlessConfig<T> extends convict.Config<T> {
-  isFrozen: () => boolean
-  freeze: () => void
-  toObject: () => Record<string, any>
-}
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
+export type ConvictServerlessConfig<T> = {
+	isFrozen: () => boolean;
+	freeze: () => void;
+	toObject: () => T;
+} & convict.Config<T>;
+/* eslint-enable @typescript-eslint/no-redundant-type-constituents */
 
-export default function convictServerless<T>(def: convict.Schema<T>, opts?: convict.Options): ConvictServerlessConfig<T>;
+export default function convictServerless<T>(def: convict.Schema<T>, options?: convict.Options): ConvictServerlessConfig<T>;
