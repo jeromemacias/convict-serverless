@@ -11,8 +11,11 @@
     "index.js",
     "index.d.ts"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": {
+		"name": "Jérôme Macias",
+		"email": "jerome.macias@gmail.com"
+	},
+  "license": "MIT",
   "dependencies": {
     "convict": "~6.2.4"
   },

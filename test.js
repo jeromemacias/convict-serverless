@@ -20,7 +20,7 @@ const config = serverlessConfig({
 	},
 });
 
-test('serverlessConfig', t => {
+test('main', t => {
 	let validateOutput;
 	function validateToOutput(output) {
 		validateOutput = output;
